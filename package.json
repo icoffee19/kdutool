@@ -1,0 +1,28 @@
+{
+    "name": "kdutool",
+    "version": "1.0.0",
+    "description": "Claude Code governance layer for KDU team — Vue + Java full-stack.",
+    "bin": {
+      "kdutool": "bin/cli.js"
+    },
+    "files": [
+      "bin",
+      "lib",
+      "templates",
+      "presets"
+    ],
+    "scripts": {
+      "test": "node tests/run.js"
+    },
+    "keywords": [
+      "claude-code",
+      "governance",
+      "vue",
+      "java",
+      "context-engineering"
+    ],
+    "license": "MIT",
+    "engines": {
+      "node": ">=16.7.0"
+    }
+  }

@@ -1,0 +1,54 @@
+{
+    "stackName": "Vue 3 + Java Fullstack",
+    "detect": {
+      "files": ["package.json", "pom.xml"],
+      "packageDeps": ["vue"]
+    },
+    "claudeMd": {
+      "buildCommands": {
+        "frontend": {
+          "install": "pnpm install",
+          "dev": "pnpm dev",
+          "build": "pnpm build",
+          "test": "pnpm test",
+          "typecheck": "pnpm type-check",
+          "lint": "pnpm lint"
+        },
+        "backend": {
+          "build": "mvn clean package -DskipTests",
+          "test": "mvn test",
+          "run": "mvn spring-boot:run",
+          "check": "mvn compile"
+        }
+      }
+    },
+    "postToolUseHooks": [
+      {
+        "matcher": "Edit",
+        "pattern": "*.vue",
+        "hooks": [{
+          "type": "command",
+          "command": "npx vue-tsc --noEmit 2>&1 | head -30",
+          "statusMessage": "Checking Vue types..."
+        }]
+      },
+      {
+        "matcher": "Edit",
+        "pattern": "*.ts",
+        "hooks": [{
+          "type": "command",
+          "command": "npx vue-tsc --noEmit 2>&1 | head -30",
+          "statusMessage": "Typechecking..."
+        }]
+      },
+      {
+        "matcher": "Edit",
+        "pattern": "*.java",
+        "hooks": [{
+          "type": "command",
+          "command": "mvn compile -q 2>&1 | head -30",
+          "statusMessage": "Compiling Java..."
+        }]
+      }
+    ]
+  }

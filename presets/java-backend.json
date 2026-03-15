@@ -1,0 +1,37 @@
+{
+    "stackName": "Java Backend (Spring Boot)",
+    "detect": {
+      "files": ["pom.xml", "build.gradle"],
+      "packageDeps": []
+    },
+    "claudeMd": {
+      "buildCommands": {
+        "backend": {
+          "build": "mvn clean package -DskipTests",
+          "test": "mvn test",
+          "run": "mvn spring-boot:run",
+          "check": "mvn compile"
+        }
+      }
+    },
+    "postToolUseHooks": [
+      {
+        "matcher": "Edit",
+        "pattern": "*.java",
+        "hooks": [{
+          "type": "command",
+          "command": "mvn compile -q 2>&1 | head -30",
+          "statusMessage": "Compiling Java..."
+        }]
+      },
+      {
+        "matcher": "Edit",
+        "pattern": "*.xml",
+        "hooks": [{
+          "type": "command",
+          "command": "mvn validate -q 2>&1 | head -10",
+          "statusMessage": "Validating pom.xml..."
+        }]
+      }
+    ]
+  }
