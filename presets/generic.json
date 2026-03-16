@@ -1,0 +1,39 @@
+{
+  "stackName": "Generic Project",
+  "detect": {
+    "files": [],
+    "packageDeps": []
+  },
+  "buildCommands": {},
+  "architecture": [
+    "<!-- TODO: fill in your project's directory structure -->",
+    "- Source: `src/`",
+    "- Tests: `tests/`",
+    "- Config: `config/`"
+  ],
+  "conventions": [
+    "- Follow existing code style in the repository",
+    "- Keep functions short and focused",
+    "- Name variables and functions descriptively"
+  ],
+  "verification": [
+    "- Run project tests before marking task done",
+    "- Run linter if configured"
+  ],
+  "safety": {
+    "never": [],
+    "always": []
+  },
+  "rules": {
+    "core.md": [
+      "# Core Rules",
+      "",
+      "## Code Style",
+      "- Follow existing conventions in the codebase",
+      "- Keep functions focused and single-purpose",
+      "- Use descriptive names for variables, functions, and classes"
+    ]
+  },
+  "postToolUseHooks": [],
+  "denyRules": []
+}

@@ -1,48 +1,80 @@
 {
-    "stackName": "Vue 3 Frontend (TypeScript)",
-    "detect": {
-      "files": ["vite.config.ts", "tsconfig.json"],
-      "packageDeps": ["vue"]
-    },
-    "claudeMd": {
-      "buildCommands": {
-        "frontend": {
-          "install": "pnpm install",
-          "dev": "pnpm dev",
-          "build": "pnpm build",
-          "test": "pnpm test",
-          "typecheck": "pnpm type-check",
-          "lint": "pnpm lint"
-        }
-      }
-    },
-    "postToolUseHooks": [
-      {
-        "matcher": "Edit",
-        "pattern": "*.vue",
-        "hooks": [{
-          "type": "command",
-          "command": "npx vue-tsc --noEmit 2>&1 | head -30",
-          "statusMessage": "Checking Vue types..."
-        }]
-      },
-      {
-        "matcher": "Edit",
-        "pattern": "*.ts",
-        "hooks": [{
-          "type": "command",
-          "command": "npx vue-tsc --noEmit 2>&1 | head -30",
-          "statusMessage": "Typechecking..."
-        }]
-      },
-      {
-        "matcher": "Edit",
-        "pattern": "*.tsx",
-        "hooks": [{
-          "type": "command",
-          "command": "npx vue-tsc --noEmit 2>&1 | head -30",
-          "statusMessage": "Typechecking..."
-        }]
-      }
+  "stackName": "Vue 3 Frontend (TypeScript)",
+  "detect": {
+    "files": ["vite.config.ts", "tsconfig.json"],
+    "packageDeps": ["vue"]
+  },
+  "buildCommands": {
+    "frontend": {
+      "install": "pnpm install",
+      "dev": "pnpm dev",
+      "build": "pnpm build",
+      "test": "pnpm test",
+      "typecheck": "pnpm type-check",
+      "lint": "pnpm lint"
+    }
+  },
+  "architecture": [
+    "- Pages/Views: `src/views/`",
+    "- Components: `src/components/` (common: `src/components/common/`)",
+    "- State management: `src/stores/` (Pinia)",
+    "- API calls: `src/api/` — do not call backend directly from components",
+    "- Router: `src/router/`",
+    "- Types: `src/types/`",
+    "- Composables: `src/composables/`"
+  ],
+  "conventions": [
+    "- Vue 3 Composition API + `<script setup>` syntax",
+    "- Pinia for state, avoid Vuex",
+    "- TypeScript strict mode where applicable",
+    "- Component naming: PascalCase for files and usage",
+    "- Composables: prefix with `use`, place in `src/composables/`"
+  ],
+  "verification": [
+    "- `pnpm typecheck` + `pnpm lint` + `pnpm test`",
+    "- UI changes: capture before/after screenshots"
+  ],
+  "safety": {
+    "never": [
+      "Commit without running lint and typecheck"
+    ],
+    "always": [
+      "Run typecheck + lint before marking task done"
     ]
-  }
+  },
+  "rules": {
+    "core.md": [
+      "# Core Rules — Vue Frontend",
+      "",
+      "## Vue / TypeScript",
+      "- Use Vue 3 Composition API with `<script setup lang=\"ts\">`",
+      "- Prefer `ref()` / `reactive()` over Options API `data()`",
+      "- Composables: `src/composables/useXxx.ts`, always prefix with `use`",
+      "- Components: PascalCase filenames, single-file `.vue` components",
+      "- Props: define with `defineProps<{ ... }>()` typed interface",
+      "- Emits: define with `defineEmits<{ ... }>()` typed interface",
+      "- Use `<template>` + `<script setup>` + `<style scoped>` order in SFC"
+    ]
+  },
+  "postToolUseHooks": [
+    {
+      "matcher": "Edit",
+      "pattern": "*.vue",
+      "hooks": [{
+        "type": "command",
+        "command": "npx vue-tsc --noEmit 2>&1 | tail -5",
+        "statusMessage": "Checking Vue types..."
+      }]
+    },
+    {
+      "matcher": "Edit",
+      "pattern": "*.ts",
+      "hooks": [{
+        "type": "command",
+        "command": "npx vue-tsc --noEmit 2>&1 | tail -5",
+        "statusMessage": "Typechecking..."
+      }]
+    }
+  ],
+  "denyRules": []
+}

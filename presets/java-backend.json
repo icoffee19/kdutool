@@ -1,37 +1,86 @@
 {
-    "stackName": "Java Backend (Spring Boot)",
-    "detect": {
-      "files": ["pom.xml", "build.gradle"],
-      "packageDeps": []
-    },
-    "claudeMd": {
-      "buildCommands": {
-        "backend": {
-          "build": "mvn clean package -DskipTests",
-          "test": "mvn test",
-          "run": "mvn spring-boot:run",
-          "check": "mvn compile"
-        }
-      }
-    },
-    "postToolUseHooks": [
-      {
-        "matcher": "Edit",
-        "pattern": "*.java",
-        "hooks": [{
-          "type": "command",
-          "command": "mvn compile -q 2>&1 | head -30",
-          "statusMessage": "Compiling Java..."
-        }]
-      },
-      {
-        "matcher": "Edit",
-        "pattern": "*.xml",
-        "hooks": [{
-          "type": "command",
-          "command": "mvn validate -q 2>&1 | head -10",
-          "statusMessage": "Validating pom.xml..."
-        }]
-      }
+  "stackName": "Java Backend (Spring Boot)",
+  "detect": {
+    "files": ["pom.xml", "build.gradle"],
+    "packageDeps": []
+  },
+  "buildCommands": {
+    "backend": {
+      "build": "mvn clean package -DskipTests",
+      "test": "mvn test",
+      "run": "mvn spring-boot:run",
+      "check": "mvn compile"
+    }
+  },
+  "architecture": [
+    "- Controller: `src/main/java/**/controller/` — parameter validation + call Service only",
+    "- Service: `src/main/java/**/service/` — business logic",
+    "- Repository/Mapper: `src/main/java/**/mapper/` — data access",
+    "- Entity/Model: `src/main/java/**/entity/`",
+    "- Config: `src/main/java/**/config/` — Spring configuration",
+    "- DTO: `src/main/java/**/dto/` — data transfer objects"
+  ],
+  "conventions": [
+    "- Java naming: camelCase methods, PascalCase classes, UPPER_SNAKE_CASE constants",
+    "- Packages: lowercase, reverse domain (`com.example.project.module`)",
+    "- RESTful API design, uniform response wrapper",
+    "- Use Lombok `@Data` / `@Builder` for DTOs",
+    "- Exceptions through global handler, not per-controller try-catch",
+    "- Constructor injection over field injection (`@RequiredArgsConstructor`)"
+  ],
+  "verification": [
+    "- `mvn compile` + `mvn test`",
+    "- API changes: update API docs and contract tests",
+    "- Database changes: verify migration up and down"
+  ],
+  "safety": {
+    "never": [
+      "Modify `application-prod.yml` or `application-prod.properties` without explicit approval",
+      "Change database migration files after they have been applied",
+      "Expose internal service errors directly to API responses",
+      "Commit without running `mvn compile`"
+    ],
+    "always": [
+      "Run `mvn compile` after Java edits",
+      "Add appropriate null checks in Java code"
     ]
-  }
+  },
+  "rules": {
+    "core.md": [
+      "# Core Rules — Java Backend",
+      "",
+      "## Java / Spring Boot",
+      "- Classes: PascalCase (`UserService`, `OrderController`)",
+      "- Methods/variables: camelCase (`getUserById`, `orderStatus`)",
+      "- Constants: UPPER_SNAKE_CASE (`MAX_RETRY_COUNT`)",
+      "- Packages: lowercase, reverse domain (`com.example.project.module`)",
+      "- DTOs: suffix with `DTO`, requests with `Request`, responses with `Response`",
+      "- Use constructor injection over field injection (`@RequiredArgsConstructor`)",
+      "- Service layer handles transactions, Controller never starts transactions"
+    ]
+  },
+  "postToolUseHooks": [
+    {
+      "matcher": "Edit",
+      "pattern": "*.java",
+      "hooks": [{
+        "type": "command",
+        "command": "mvn compile -q 2>&1 | tail -5",
+        "statusMessage": "Compiling Java..."
+      }]
+    },
+    {
+      "matcher": "Edit",
+      "pattern": "*.xml",
+      "hooks": [{
+        "type": "command",
+        "command": "mvn validate -q 2>&1 | tail -10",
+        "statusMessage": "Validating pom.xml..."
+      }]
+    }
+  ],
+  "denyRules": [
+    "Read(**/application-prod.yml)",
+    "Read(**/application-prod.properties)"
+  ]
+}
