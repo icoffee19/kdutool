@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/application-prod.yml)",
+      "Read(**/application-prod.properties)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "pattern": "*.vue",
+        "hooks": [{
+          "type": "command",
+          "command": "npx vue-tsc --noEmit 2>&1 | tail -5",
+          "statusMessage": "Checking Vue types..."
+        }]
+      },
+      {
+        "matcher": "Edit",
+        "pattern": "*.ts",
+        "hooks": [{
+          "type": "command",
+          "command": "npx vue-tsc --noEmit 2>&1 | tail -5",
+          "statusMessage": "Typechecking..."
+        }]
+      },
+      {
+        "matcher": "Edit",
+        "pattern": "*.java",
+        "hooks": [{
+          "type": "command",
+          "command": "mvn compile -q 2>&1 | tail -5",
+          "statusMessage": "Compiling Java..."
+        }]
+      }
+    ]
+  }
+}

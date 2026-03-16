@@ -1,0 +1,7 @@
+{
+  "stackName": "Java Backend (Spring Boot)",
+  "detect": {
+    "files": ["pom.xml", "build.gradle"],
+    "packageDeps": []
+  }
+}

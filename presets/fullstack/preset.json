@@ -1,0 +1,7 @@
+{
+  "stackName": "Vue 3 + Java Fullstack",
+  "detect": {
+    "files": ["package.json", "pom.xml"],
+    "packageDeps": ["vue"]
+  }
+}

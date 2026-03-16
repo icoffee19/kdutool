@@ -1,0 +1,39 @@
+# Project Contract
+
+## Build And Test
+- Install: `{{pm}} install`
+- Dev: `{{pm}} {{run}}dev`
+- Build: `{{pm}} {{run}}build`
+- Test: `{{pm}} {{run}}test`
+- Typecheck: `{{pm}} {{run}}type-check`
+- Lint: `{{pm}} {{run}}lint`
+
+## Architecture Boundaries
+- Pages/Views: `src/views/`
+- Components: `src/components/` (common: `src/components/common/`)
+- State management: `src/stores/` (Pinia)
+- API calls: `src/api/` — do not call backend directly from components
+- Router: `src/router/`
+- Types: `src/types/`
+- Composables: `src/composables/`
+
+## Coding Conventions
+- Vue 3 Composition API + `<script setup>` syntax
+- Pinia for state, avoid Vuex
+- TypeScript strict mode where applicable
+- Component naming: PascalCase for files and usage
+- Composables: prefix with `use`, place in `src/composables/`
+
+{{safety-rails}}
+
+### Stack-specific NEVER
+- Commit without running lint and typecheck
+
+### Stack-specific ALWAYS
+- Run typecheck + lint before marking task done
+
+## Verification
+- `pnpm typecheck` + `pnpm lint` + `pnpm test`
+- UI changes: capture before/after screenshots
+
+{{compact-instructions}}

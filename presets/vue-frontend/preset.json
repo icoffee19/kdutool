@@ -1,0 +1,7 @@
+{
+  "stackName": "Vue 3 Frontend (TypeScript)",
+  "detect": {
+    "files": ["vite.config.ts", "tsconfig.json"],
+    "packageDeps": ["vue"]
+  }
+}

@@ -9,7 +9,8 @@
       "bin",
       "lib",
       "templates",
-      "presets"
+      "presets",
+      "commands"
     ],
     "scripts": {
       "test": "node tests/run.js"

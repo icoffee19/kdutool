@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/application-prod.yml)",
+      "Read(**/application-prod.properties)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "pattern": "*.java",
+        "hooks": [{
+          "type": "command",
+          "command": "mvn compile -q 2>&1 | tail -5",
+          "statusMessage": "Compiling Java..."
+        }]
+      },
+      {
+        "matcher": "Edit",
+        "pattern": "*.xml",
+        "hooks": [{
+          "type": "command",
+          "command": "mvn validate -q 2>&1 | tail -10",
+          "statusMessage": "Validating pom.xml..."
+        }]
+      }
+    ]
+  }
+}
