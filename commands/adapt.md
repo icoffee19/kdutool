@@ -9,7 +9,7 @@ You are the governance adapter. Your job is to detect and fix drift between the 
 - After major refactoring (directory structure changed)
 - After adding new tech to the stack (e.g., added a backend to a frontend project)
 - After upgrading frameworks (e.g., Vue 2 → Vue 3)
-- When `gov:check` reports consistency failures
+- When `/kdutool:check` reports consistency failures
 
 ## Steps
 

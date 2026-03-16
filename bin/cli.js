@@ -30,7 +30,7 @@ Usage:
 
   kdutool check [--ci]
     Deterministic governance health check (safe for CI).
-    For intelligent checks, use /gov:check in Claude Code.
+    For intelligent checks, use /kdutool:check in Claude Code.
 
   kdutool help
     Show this message.
@@ -38,9 +38,9 @@ Usage:
 Workflow:
   npx kdutool install              # 1. Install governance files
   Then in Claude Code:
-    /gov:init                      # 2. Claude adapts CLAUDE.md to your project
-    /gov:check                     # 3. Claude verifies everything
-    /gov:adapt                     # 4. Fix drift after refactoring
+    /kdutool:init                      # 2. Claude adapts CLAUDE.md to your project
+    /kdutool:check                     # 3. Claude verifies everything
+    /kdutool:adapt                     # 4. Fix drift after refactoring
 `);
 } else if (command === 'install') {
   install(positional, flags);
