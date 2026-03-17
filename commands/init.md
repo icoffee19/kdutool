@@ -47,11 +47,24 @@ Then adapt further:
   - Use `/gsd:quick` for bug fixes, full flow for features
   ```
 
-### Step 3: Report
+### Step 3: Preview and Confirm
 
-Show the user what was generated and highlight anything they should customize:
+Show the user the generated CLAUDE.md content and highlight:
 - Sections marked with `<!-- TODO: ... -->` that need manual input
 - Architecture paths that may need adjustment
 - Any missing test/lint scripts that should be added
 
-Output the final CLAUDE.md content and ask the user to confirm before writing.
+Then ask:
+
+```
+CLAUDE.md is ready. How would you like to proceed?
+
+1. Apply — write the generated CLAUDE.md
+2. Edit first — tell me what to change, then I'll regenerate
+3. Skip — keep the current CLAUDE.md unchanged
+```
+
+**CRITICAL: Do NOT write CLAUDE.md until the user explicitly replies with their choice.**
+- If the user picks option 2, make the requested changes and show the updated version for another round of confirmation.
+- If the user picks option 3 or says "no" / "skip", end without writing.
+- If the user is silent or unclear, ask again — never assume consent.

@@ -42,9 +42,26 @@ For each drift item, show the specific change as a diff:
 + - Typecheck: `pnpm typecheck`
 ```
 
-### Step 4: Apply
+### Step 4: Confirm
 
-Apply changes ONLY after the user confirms. Never auto-modify governance files without confirmation.
+After showing all proposed changes, you MUST ask the user to choose before modifying any file:
+
+```
+Found N drift items. How would you like to proceed?
+
+1. Apply all changes
+2. Apply changes to specific files only (I'll list them)
+3. Skip — keep everything as-is
+```
+
+**CRITICAL: Do NOT edit any file until the user explicitly replies with their choice.**
+- If the user picks option 2, list each file and let them confirm individually.
+- If the user picks option 3 or says "no" / "skip" / "keep", end without changes.
+- If the user is silent or unclear, ask again — never assume consent.
+
+### Step 5: Apply (only after confirmation)
+
+Apply the confirmed changes. After applying, show a summary of what was changed.
 
 Also check if the current preset is still the best match:
 - If the project now has both frontend and backend, suggest switching from `vue-frontend` to `fullstack`
