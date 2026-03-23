@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-const { install, listPresets } = require('../lib/install');
+const { install, uninstall, listPresets } = require('../lib/install');
 const { check } = require('../lib/check');
 const VERSION = require('../package.json').version;
 
@@ -27,6 +27,11 @@ Usage:
     Copy governance files into .claude/ and generate CLAUDE.md template.
     Auto-detects tech stack if no preset given.
     Available presets: ${presets}
+    Composite presets: kdutool install vue-frontend+java-backend
+    Multi-repo: auto-detected when sub-directories have .git/
+
+  kdutool uninstall [--global]
+    Clean removal of all kdutool files (preserves CLAUDE.md and third-party files).
 
   kdutool check [--ci]
     Deterministic governance health check (safe for CI).
@@ -38,12 +43,14 @@ Usage:
 Workflow:
   npx kdutool install              # 1. Install governance files
   Then in Claude Code:
-    /kdutool:init                      # 2. Claude adapts CLAUDE.md to your project
-    /kdutool:check                     # 3. Claude verifies everything
-    /kdutool:adapt                     # 4. Fix drift after refactoring
+    /kdutool:init                  # 2. Claude adapts CLAUDE.md to your project
+    /kdutool:check                 # 3. Claude verifies everything
+    /kdutool:adapt                 # 4. Fix drift after refactoring
 `);
 } else if (command === 'install') {
   install(positional, flags);
+} else if (command === 'uninstall') {
+  uninstall(flags);
 } else if (command === 'check') {
   check(flags);
 } else {
